@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const auth = require('../middleware/auth');
-const adminOnly = require('../middleware/admin');
+const auth = require('../middlewares/auth');
+const adminOnly = require('../middlewares/admin');
 const controller = require('../controllers/sweetsController');
 
 router.post('/', auth, controller.create);

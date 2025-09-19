@@ -9,10 +9,10 @@ const user_Schema=new mongoose.Schema({
 },{ timestamps:true });
 
 
-userSchema.methods.comparePassword = function(pass) {
+user_Schema.methods.comparePassword = function(pass) {
     return bcrypt.compare(pass, this.password);
   };
-userSchema.statics.hashPassword = function(pass) {
+user_Schema.statics.hashPassword = function(pass) {
     return bcrypt.hash(pass, 10);
   };
   

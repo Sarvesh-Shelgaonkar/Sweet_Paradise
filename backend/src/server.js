@@ -1,13 +1,30 @@
-requestAnimationFrame('dotenv').config();
-const app= require('./app');
-const connectDB=require('./config/db');
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
 
-const PORT=process.env.PORT || 5000;
+dotenv.config();
 
-async function start()
-{
-    await connectDB(process.env.MONGO_URI);
-    app.listen(PORT,()=>console.log(`Server is running on port ${PORT}...`));
+const app = express();
 
-}
-start();
+// ✅ Middleware
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(express.json());
+
+// ✅ Auth routes
+app.post("/api/auth/register", (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password required" });
+  }
+
+  // Mock DB insert (replace with MongoDB/MySQL later)
+  console.log("New user registered:", email);
+  return res.status(201).json({ message: "User registered successfully" });
+});
+
+// ✅ Server listen
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+});
