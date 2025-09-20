@@ -46,11 +46,13 @@ cd tdd-sweet_shop_management
 ### Backend Setup
 
 cd backend
+
 npm install
 
 Create a `.env` file inside `backend/`:
 
 .env should contain
+
 PORT=5000
 
 MONGODB_URI=your_mongodb_atlas_uri
@@ -58,48 +60,62 @@ MONGODB_URI=your_mongodb_atlas_uri
 JWT_SECRET=your_jwt_secret
 
 Run backend:
+
 npm run dev
 
 
 ### Frontend Setup
 
 cd frontend
+
 npm install
+
 npm start
 
 The app will be available at:
+
 Frontend → `http://localhost:3000`
+
 Backend → `http://localhost:5000`
 
 ## Screenshots:
 
 1. **Login Page**
+2. 
 <img width="1439" height="842" alt="Screenshot 2025-09-20 at 9 17 01 PM" src="https://github.com/user-attachments/assets/b6609247-516d-405d-86b0-b1dd8a6610b8" />
 
 3. **Register Page**
+4. 
   <img width="1439" height="842" alt="Screenshot 2025-09-20 at 9 17 13 PM" src="https://github.com/user-attachments/assets/a90767b8-84f5-43a0-bd1a-35b2c03ee45d" />
 
-4. **Sweet List (User View)**
+5. **Sweet List (User View)**
+6. 
    <img width="1439" height="842" alt="Screenshot 2025-09-20 at 9 17 22 PM" src="https://github.com/user-attachments/assets/6327cfb4-612d-446d-a734-a1df0c77bb9a" />
 
-5. **Dashboard - Add Sweet**
+7. **Dashboard - Add Sweet**
+8. 
 <img width="1439" height="842" alt="Screenshot 2025-09-20 at 9 17 32 PM" src="https://github.com/user-attachments/assets/d6abe2e2-dc69-41c4-bb89-9fb36a5154eb" />
 
   
-6. **Cart Update/Delete Sweet**
+9. **Cart Update/Delete Sweet**
+    
 ![WhatsApp Image 2025-09-20 at 21 33 45](https://github.com/user-attachments/assets/e63d0e87-cad3-49c6-90bf-d903baf5439e)
 
 
 ## Testing:
 
 Run tests from the backend:
+
 cd backend
+
 npm test
 
 **Mongo DB connection screenshot** 
+
 <img width="1440" height="900" alt="Screenshot 2025-09-20 at 8 56 58 PM" src="https://github.com/user-attachments/assets/e710e1c9-afc3-4d03-8007-94f147c14f9b" />
 
 **test results screenshot** 
+
 <img width="1440" height="900" alt="Screenshot 2025-09-20 at 8 12 39 PM" src="https://github.com/user-attachments/assets/05b60082-ea38-4db7-ad4c-f60c69202b81" />
 
 
@@ -110,6 +126,7 @@ As part of this project, I used **AI tools responsibly** to accelerate developme
 * **AI Tools Used**
 
   * ChatGPT
+  * 
   * GitHub Copilot (for in-editor suggestions)
 
 * **How I Used Them**
@@ -128,5 +145,7 @@ As part of this project, I used **AI tools responsibly** to accelerate developme
 
 **Vidhi Koul**
   mailto:koulvidhi2@gmail.com
+  
 🔗 [[LinkedIn Profile](https://www.linkedin.com/in/vidhi-koul/)](#)
+
 🔗 [[GitHub Profile](https://github.com/vidhikoul)](#)
