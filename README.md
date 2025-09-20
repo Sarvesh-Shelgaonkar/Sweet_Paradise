@@ -126,7 +126,7 @@ As part of this project, I used **AI tools responsibly** to accelerate developme
 * **AI Tools Used**
 
   * ChatGPT
-  * 
+
   * GitHub Copilot (for in-editor suggestions)
 
 * **How I Used Them**
