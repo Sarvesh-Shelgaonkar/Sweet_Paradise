@@ -6,22 +6,44 @@ const JWT_EXPIRES_IN=process.env.JWT_EXPIRES_IN || '1h';
 
 function createToken(user) 
 {
-    return jwt.sign({ sub: user._id.toString(), isAdminRole: user.isAdminRole }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+    return jwt.sign({ sub: user._id.toString(), isAdmin: user.isAdmin }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 }
   
 exports.register = async (req, res, next) => 
 {
     try {
+      console.log('Registration request received:', req.body);
       const { email, password, name } = req.body;
-      if (!email || !password) return res.status(400).json({ message: 'Email and password required' });
+      
+      if (!email || !password) {
+        console.log('Missing email or password');
+        return res.status(400).json({ message: 'Email and password required' });
+      }
   
+      console.log('Checking for existing user...');
       const existing = await User.findOne({ email });
-      if (existing) return res.status(409).json({ message: 'Email already in use' });
+      if (existing) {
+        console.log('User already exists');
+        return res.status(409).json({ message: 'Email already in use' });
+      }
   
-      const passwordHash = await User.password(pass);
-      const user = await User.create({ email, passwordHash, name });
-      res.status(201).json({ id: user._id, email: user.email, fullName: user.name });
-    } catch (err) { next(err); }
+      console.log('Hashing password...');
+      const passwordHash = await User.hashPassword(password);
+      
+      console.log('Creating user...');
+      const user = await User.create({ email, password: passwordHash, name });
+      
+      console.log('User created successfully:', user._id);
+      res.status(201).json({ 
+        message: 'Registration successful!',
+        id: user._id, 
+        email: user.email, 
+        fullName: user.name 
+      });
+    } catch (err) { 
+      console.error('Registration error:', err);
+      next(err); 
+    }
   };
   
   exports.login = async (req, res, next) => {

@@ -16,7 +16,7 @@ module.exports = async function auth(req, res, next)
       const payload = jwt.verify(token, JWT_SECRET);
       const user = await User.findById(payload.sub);
       if (!user) return res.status(401).json({ message: 'User not found' });
-      req.user = { id: user._id, isAdminRole: user.isAdminRole };
+      req.user = { id: user._id, isAdmin: user.isAdmin };
       next();
     } catch (err) {
       return res.status(401).json({ message: 'Invalid or expired token' });
