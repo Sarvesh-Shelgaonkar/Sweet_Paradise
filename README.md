@@ -1,9 +1,9 @@
-<img width="1440" height="900" alt="Screenshot 2025-09-20 at 8 56 58 PM" src="https://github.com/user-attachments/assets/6ed3f603-4a07-4246-9b83-0e71d11ca99f" /><img width="1439" height="842" alt="Screenshot 2025-09-20 at 9 17 32 PM" src="https://github.com/user-attachments/assets/b6284565-1125-4684-a98a-7341fb571bc4" /># tdd-sweet_shop_management
+# tdd-sweet_shop_management
 A full-stack Sweet Shop Management System built with the MERN stack, following TDD practices. Includes user authentication, sweet catalog, search, purchasing, inventory management, and admin CRUD operations with tested, reliable workflows.
 
 
+# Features:
 
-# Features
 * **Authentication & Authorization**
 
   * User registration and login with JWT.
@@ -26,7 +26,7 @@ A full-stack Sweet Shop Management System built with the MERN stack, following T
   * Unit and integration tests with Jest & Supertest.
 
 
-## Tech Stack
+## Tech Stack:
 
 **Frontend**: React.js, Axios, Bootstrap
 **Backend**: Node.js, Express.js, MongoDB (Atlas)
@@ -34,7 +34,7 @@ A full-stack Sweet Shop Management System built with the MERN stack, following T
 **Auth**: JWT + bcrypt
 **Testing**: Jest, Supertest
 
-## Installation & Setup
+## Installation & Setup:
 
 ### Clone the Repository
 
@@ -68,8 +68,7 @@ The app will be available at:
 Frontend → `http://localhost:3000`
 Backend → `http://localhost:5000`
 
-## Screenshots
-
+## Screenshots:
 
 1. **Login Page**
 <img width="1439" height="842" alt="Screenshot 2025-09-20 at 9 17 01 PM" src="https://github.com/user-attachments/assets/b6609247-516d-405d-86b0-b1dd8a6610b8" />
@@ -88,7 +87,7 @@ Backend → `http://localhost:5000`
 ![WhatsApp Image 2025-09-20 at 21 33 45](https://github.com/user-attachments/assets/e63d0e87-cad3-49c6-90bf-d903baf5439e)
 
 
-## Testing
+## Testing:
 
 Run tests from the backend:
 cd backend
@@ -101,7 +100,7 @@ npm test
 <img width="1440" height="900" alt="Screenshot 2025-09-20 at 8 12 39 PM" src="https://github.com/user-attachments/assets/05b60082-ea38-4db7-ad4c-f60c69202b81" />
 
 
-## My AI Usage
+## My AI Usage:
 
 As part of this project, I used **AI tools responsibly** to accelerate development and improve quality.
 
@@ -122,7 +121,7 @@ As part of this project, I used **AI tools responsibly** to accelerate developme
     * Writing repetitive frontend code (React form handlers, Axios requests).
     * Suggesting quick test snippets.
 
-## Author
+## Author:
 
 **Vidhi Koul**
   mailto:koulvidhi2@gmail.com
