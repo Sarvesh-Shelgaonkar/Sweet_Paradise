@@ -39,6 +39,7 @@ A full-stack Sweet Shop Management System built with the MERN stack, following T
 ### Clone the Repository
 
 git clone [https://github.com/<your-username>/sweet-shop-management.git](https://github.com/vidhikoul/tdd-sweet_shop_management.git)
+
 cd tdd-sweet_shop_management
 
 
@@ -51,7 +52,9 @@ Create a `.env` file inside `backend/`:
 
 .env should contain
 PORT=5000
+
 MONGODB_URI=your_mongodb_atlas_uri
+
 JWT_SECRET=your_jwt_secret
 
 Run backend:
