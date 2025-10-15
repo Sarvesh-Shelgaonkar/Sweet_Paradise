@@ -1,146 +1,154 @@
-# Sweet Paradise 🍭
+# tdd-sweet_shop_management
+A full-stack Sweet Shop Management System built with the MERN stack, following TDD practices. Includes user authentication, sweet catalog, search, purchasing, inventory management, and admin CRUD operations with tested, reliable workflows.
 
-A full-stack sweet shop management system built with React.js frontend and Node.js backend.
 
-## Features
+# Features:
 
-- **User Authentication**: Login and registration system
-- **Product Catalog**: Browse available sweets and confectioneries
-- **Shopping Cart**: Add items to cart and manage orders
-- **Admin Panel**: Manage inventory and view transactions
-- **Inventory Management**: Track stock levels and product details
+* **Authentication & Authorization**
 
-## Tech Stack
+  * User registration and login with JWT.
+  * Role-based access: `admin` vs `user`.
 
-### Frontend
-- React.js
-- React Router DOM
-- Axios for API calls
-- CSS for styling
+* **Sweet Management**
 
-### Backend
-- Node.js
-- Express.js
-- MongoDB with Mongoose
-- JWT for authentication
-- bcrypt for password hashing
+  * Add, update, and delete sweets (admin only).
+  * Search sweets by name.
+  * View available sweets.
 
-## Project Structure
+* **Security**
 
-```
-Sweet_Paradise/
-├── frontend/          # React.js frontend application
-│   ├── src/
-│   │   ├── components/    # React components
-│   │   ├── apis/         # API integration
-│   │   └── ...
-│   └── package.json
-├── backend/           # Node.js backend application
-│   ├── src/
-│   │   ├── controllers/  # Route controllers
-│   │   ├── models/      # Database models
-│   │   ├── routes/      # API routes
-│   │   ├── middleware/  # Custom middleware
-│   │   └── config/      # Database configuration
-│   └── package.json
-└── README.md
-```
+  * Passwords hashed with bcrypt.
+  * JWT-based session management.
+  * Admin-only routes protected with middleware.
 
-## Installation & Setup
+* **Testing**
 
-### Prerequisites
-- Node.js (v14 or higher)
-- MongoDB
-- npm or yarn
+  * Unit and integration tests with Jest & Supertest.
+
+
+## Tech Stack:
+
+**Frontend**: React.js, Axios, Bootstrap
+**Backend**: Node.js, Express.js, MongoDB (Atlas)
+**Database**: MongoDB Atlas
+**Auth**: JWT + bcrypt
+**Testing**: Jest, Supertest
+
+## Installation & Setup:
+
+### Clone the Repository
+
+git clone [https://github.com/<your-username>/sweet-shop-management.git](https://github.com/vidhikoul/tdd-sweet_shop_management.git)
+
+cd tdd-sweet_shop_management
+
 
 ### Backend Setup
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+cd backend
 
-3. Create a `.env` file in the backend directory with:
-   ```
-   MONGODB_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret_key
-   PORT=5000
-   ```
+npm install
 
-4. Seed the database (optional):
-   ```bash
-   npm run seed
-   ```
+Create a `.env` file inside `backend/`:
 
-5. Start the development server:
-   ```bash
-   npm run dev
-   ```
+.env should contain
+
+PORT=5000
+
+MONGODB_URI=your_mongodb_atlas_uri
+
+JWT_SECRET=your_jwt_secret
+
+JWT_EXPIRES_IN=3600s
+
+Run backend:
+
+npm run dev
+
 
 ### Frontend Setup
-1. Navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:
-   ```bash
-   npm start
-   ```
-
-The frontend will run on `http://localhost:3000` and backend on `http://localhost:5000`.
-
-## API Endpoints
-
-### Authentication
-- `POST /api/auth/register` - User registration
-- `POST /api/auth/login` - User login
-
-### Sweets
-- `GET /api/sweets` - Get all sweets
-- `POST /api/sweets` - Add new sweet (Admin only)
-- `PUT /api/sweets/:id` - Update sweet (Admin only)
-- `DELETE /api/sweets/:id` - Delete sweet (Admin only)
-
-### Inventory
-- `GET /api/inventory` - Get inventory status
-- `PUT /api/inventory/:id` - Update inventory
-
-## Testing
-
-### Backend Tests
-```bash
-cd backend
-npm test
-```
-
-### Frontend Tests
-```bash
 cd frontend
+
+npm install
+
+npm start
+
+The app will be available at:
+
+Frontend → `http://localhost:3000`
+
+Backend → `http://localhost:5000`
+
+## Screenshots:
+
+1. **Login Page**
+   
+<img width="1439" height="842" alt="Screenshot 2025-09-20 at 9 17 01 PM" src="https://github.com/user-attachments/assets/b6609247-516d-405d-86b0-b1dd8a6610b8" />
+
+2. **Register Page**
+
+  <img width="1439" height="842" alt="Screenshot 2025-09-20 at 9 17 13 PM" src="https://github.com/user-attachments/assets/a90767b8-84f5-43a0-bd1a-35b2c03ee45d" />
+
+3. **Sweet List (User View)**
+   
+   <img width="1439" height="842" alt="Screenshot 2025-09-20 at 9 17 22 PM" src="https://github.com/user-attachments/assets/6327cfb4-612d-446d-a734-a1df0c77bb9a" />
+
+4. **Dashboard - Add Sweet**
+   
+<img width="1439" height="842" alt="Screenshot 2025-09-20 at 9 17 32 PM" src="https://github.com/user-attachments/assets/d6abe2e2-dc69-41c4-bb89-9fb36a5154eb" />
+
+  
+5. **Cart Update/Delete Sweet**
+    
+![WhatsApp Image 2025-09-20 at 21 33 45](https://github.com/user-attachments/assets/e63d0e87-cad3-49c6-90bf-d903baf5439e)
+
+
+## Testing:
+
+Run tests from the backend:
+
+cd backend
+
 npm test
-```
 
-## Contributing
+1. **Mongo DB connection screenshot** 
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+<img width="1440" height="900" alt="Screenshot 2025-09-20 at 8 56 58 PM" src="https://github.com/user-attachments/assets/e710e1c9-afc3-4d03-8007-94f147c14f9b" />
+
+2. **test results screenshot** 
+
+<img width="1440" height="900" alt="Screenshot 2025-09-20 at 8 12 39 PM" src="https://github.com/user-attachments/assets/05b60082-ea38-4db7-ad4c-f60c69202b81" />
+
+
+## My AI Usage:
+
+As part of this project, I used **AI tools responsibly** to accelerate development and improve quality.
+
+* **AI Tools Used**
+
+  * ChatGPT
+
+  * GitHub Copilot (for in-editor suggestions)
+
+* **How I Used Them**
+
+  * ChatGPT helped me:
+    * Debug CORS, MongoDB Atlas, and authentication issues.
+    * Generate boilerplate code for React forms and Express routes.
+    * Create test cases with Jest and Supertest.
+
+
+  * GitHub Copilot assisted me in:
+    * Writing repetitive frontend code (React form handlers, Axios requests).
+    * Suggesting quick test snippets.
 
 ## License
 
 This project is licensed under the MIT License.
 
-## Author
+## Author:
+**Sarvesh Shelgaonkar**
 
-Sarvesh Shelgaonkar
+
+
