@@ -14,11 +14,36 @@ function Navbar({ user, logout, cartCount }) {
           
           {user?.isLoggedIn ? (
             <div className="user-menu">
-              <Link to="/dashboard" className="nav-link">Dashboard</Link>
+              {user.isAdmin && (
+                <Link to="/admin" className="nav-link admin-link" style={{
+                  color: '#c44569', 
+                  fontWeight: 'bold',
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  padding: '0.5rem 1rem',
+                  borderRadius: '20px',
+                  border: '2px solid #c44569',
+                  textDecoration: 'none'
+                }}>
+                  👑 Admin Panel
+                </Link>
+              )}
               <Link to="/cart" className="nav-link cart-icon">
                 🛒
                 {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
               </Link>
+              <span className="user-greeting" style={{
+                color: '#c44569', 
+                fontWeight: '600',
+                background: '#f8f9fa',
+                padding: '0.5rem 1rem',
+                borderRadius: '20px',
+                marginRight: '1rem',
+                border: '1px solid #e9ecef'
+              }}>
+                👋 Hi, {user.name || 'User'}!
+              </span>
               <button onClick={logout} className="btn btn-secondary">Logout</button>
             </div>
           ) : (

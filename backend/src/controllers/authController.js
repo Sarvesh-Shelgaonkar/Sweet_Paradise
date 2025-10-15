@@ -31,7 +31,9 @@ exports.register = async (req, res, next) =>
       const passwordHash = await User.hashPassword(password);
       
       console.log('Creating user...');
-      const user = await User.create({ email, password: passwordHash, name });
+      const { role } = req.body; // Get role from request
+      const isAdmin = role === 'admin';
+      const user = await User.create({ email, password: passwordHash, name, isAdmin });
       
       console.log('User created successfully:', user._id);
       res.status(201).json({ 
@@ -58,6 +60,15 @@ exports.register = async (req, res, next) =>
       if (!ok) return res.status(401).json({ message: 'Invalid credentials' });
   
       const token = createToken(user);
-      res.json({ access_token: token, token_type: 'bearer' });
+      res.json({ 
+        access_token: token, 
+        token_type: 'bearer',
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          isAdmin: user.isAdmin
+        }
+      });
     } catch (err) { next(err); }
   };

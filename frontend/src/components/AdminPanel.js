@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API from '../apis/api';
 
 function AdminPanel() {
   const [activeTab, setActiveTab] = useState('inventory');
@@ -37,21 +38,81 @@ function AdminPanel() {
     ]
   };
   useEffect(() => {
-    setProducts(mockProducts);
-    setOrders(mockOrders);
-    setAnalytics(mockAnalytics);
+    fetchProducts();
+    setOrders(mockOrders); // Keep mock for now
+    setAnalytics(mockAnalytics); // Keep mock for now
   }, []);
-  const handleAddProduct = (e) => {
+
+  const fetchProducts = async () => {
+    try {
+      const response = await API.get('/sweets');
+      console.log('API Response:', response.data);
+      
+      // Handle both possible response formats
+      const productsData = response.data.items || response.data || [];
+      
+      if (productsData.length === 0) {
+        console.log('No products in database, using mock data');
+        setProducts(mockProducts);
+        alert('📦 Database is empty! Using demo products. Add real products to see them here.');
+        return;
+      }
+      
+      // Transform API data to match frontend format
+      const transformedProducts = productsData.map(product => ({
+        id: product._id,
+        name: product.name,
+        price: product.price,
+        category: product.category,
+        stock: product.stock,
+        description: product.description,
+        image: product.imageUrl || `/${product.name.toLowerCase().replace(/\s+/g, '')}.jpeg`
+      }));
+      
+      setProducts(transformedProducts);
+      console.log('✅ Loaded', transformedProducts.length, 'products from database');
+      
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      // Fallback to mock data if API fails
+      setProducts(mockProducts);
+      alert('⚠️ Could not connect to database. Using demo data for now.');
+    }
+  };
+  const handleAddProduct = async (e) => {
     e.preventDefault();
-    const product = {
-      id: products.length + 1,
-      ...newProduct,
-      price: parseFloat(newProduct.price),
-      stock: parseInt(newProduct.stock)
-    };
-    setProducts([...products, product]);
-    setNewProduct({ name: '', description: '', price: '', category: 'chocolate', stock: '', image: '' });
-    alert('Product added successfully!');
+    
+    try {
+      const productData = {
+        name: newProduct.name,
+        description: newProduct.description,
+        price: parseFloat(newProduct.price),
+        category: newProduct.category,
+        stock: parseInt(newProduct.stock),
+        imageUrl: newProduct.image || `/${newProduct.name.toLowerCase().replace(/\s+/g, '')}.jpeg`
+      };
+
+      const response = await API.post('/sweets', productData);
+      
+      // Add new product to local state
+      const newProductWithId = {
+        id: response.data._id,
+        name: response.data.name,
+        price: response.data.price,
+        category: response.data.category,
+        stock: response.data.stock,
+        description: response.data.description,
+        image: response.data.imageUrl
+      };
+      
+      setProducts([...products, newProductWithId]);
+      setNewProduct({ name: '', description: '', price: '', category: 'chocolate', stock: '', image: '' });
+      alert('✅ Product added to database successfully!');
+      
+    } catch (error) {
+      console.error('Error adding product:', error);
+      alert('❌ Error adding product: ' + (error.response?.data?.message || 'Please try again'));
+    }
   };
 
   const updateOrderStatus = (orderId, newStatus) => {
@@ -61,10 +122,19 @@ function AdminPanel() {
     alert(`Order #${orderId} status updated to ${newStatus}`);
   };
 
-  const deleteProduct = (productId) => {
-    if (window.confirm('Are you sure you want to delete this product?')) {
-      setProducts(products.filter(p => p.id !== productId));
-      alert('Product deleted successfully!');
+  const deleteProduct = async (productId) => {
+    if (window.confirm('Are you sure you want to delete this product from database?')) {
+      try {
+        await API.delete(`/sweets/${productId}`);
+        
+        // Remove from local state
+        setProducts(products.filter(p => p.id !== productId));
+        alert('✅ Product deleted from database successfully!');
+        
+      } catch (error) {
+        console.error('Error deleting product:', error);
+        alert('❌ Error deleting product: ' + (error.response?.data?.message || 'Please try again'));
+      }
     }
   };
   const getStatusColor = (status) => {

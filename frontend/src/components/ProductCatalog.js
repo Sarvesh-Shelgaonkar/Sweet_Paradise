@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import API from '../apis/api';
 
-function ProductCatalog({ cart, setCart }) {
+function ProductCatalog({ cart, setCart, user }) {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -13,33 +13,33 @@ function ProductCatalog({ cart, setCart }) {
   const mockProducts = [
     {
       id: 1,
-      name: "Premium Chocolate Truffle",
-      description: "Rich dark chocolate truffles with Belgian cocoa",
-      price: 299,
-      category: "chocolate",
-      image: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400",
-      stock: 50,
-      rating: 4.8
-    },
-    {
-      id: 2,
       name: "Classic Gulab Jamun",
       description: "Traditional soft and spongy milk solid balls in sugar syrup",
       price: 249,
       category: "indian",
-      image: "gulabjamun.jpeg",
+      image: "/gulabjamun.jpeg",
       stock: 30,
       rating: 4.9
     },
     {
-      id: 3,
+      id: 2,
       name: "Bengali Rasgulla",
       description: "Soft cottage cheese balls in light sugar syrup",
       price: 199,
       category: "indian",
-      image: "rasgulla.jpeg",
+      image: "/rasgulla.jpeg",
       stock: 25,
       rating: 4.7
+    },
+    {
+      id: 3,
+      name: "Kaju Katli",
+      description: "Diamond shaped cashew sweets with silver foil",
+      price: 459,
+      category: "indian",
+      image: "/kaju.jpeg",
+      stock: 15,
+      rating: 4.8
     },
     {
       id: 4,
@@ -47,19 +47,19 @@ function ProductCatalog({ cart, setCart }) {
       description: "Delicate almond cookies with buttercream filling",
       price: 399,
       category: "pastries",
-      image: "macarons.jpeg",
+      image: "/macarons.jpeg",
       stock: 20,
       rating: 4.6
     },
     {
       id: 5,
-      name: "Kaju Katli",
-      description: "Diamond shaped cashew sweets with silver foil",
-      price: 459,
+      name: "Motichoor Laddu",
+      description: "Traditional round sweets made with gram flour",
+      price: 179,
       category: "indian",
-      image: "kaju.jpeg",
-      stock: 15,
-      rating: 4.8
+      image: "/motichur.jpeg",
+      stock: 35,
+      rating: 4.6
     },
     {
       id: 6,
@@ -67,7 +67,7 @@ function ProductCatalog({ cart, setCart }) {
       description: "Fudgy chocolate brownies with walnuts",
       price: 249,
       category: "chocolate",
-      image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400",
+      image: "/brownie.jpeg",
       stock: 40,
       rating: 4.5
     },
@@ -77,19 +77,9 @@ function ProductCatalog({ cart, setCart }) {
       description: "Fresh strawberry sponge cake with cream",
       price: 599,
       category: "pastries",
-      image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=400",
+      image: "/strawberrycake.jpeg",
       stock: 10,
       rating: 4.7
-    },
-    {
-      id: 8,
-      name: "Motichoor Laddu",
-      description: "Traditional round sweets made with gram flour",
-      price: 179,
-      category: "indian",
-      image: "motichur.jpeg",
-      stock: 35,
-      rating: 4.6
     }
   ];
 
@@ -133,6 +123,13 @@ function ProductCatalog({ cart, setCart }) {
   };
 
   const addToCart = (product) => {
+    // Check if user is logged in
+    if (!user?.isLoggedIn) {
+      alert("Please register or login to add items to cart! 🛒");
+      window.location.href = "/register";
+      return;
+    }
+
     const existingItem = cart.find(item => item.id === product.id);
     
     if (existingItem) {
@@ -213,7 +210,20 @@ function ProductCatalog({ cart, setCart }) {
         {filteredProducts.map(product => (
           <div key={product.id} className="product-card">
             <div style={{ position: 'relative' }}>
-              <img src={product.image} alt={product.name} className="product-image" />
+              <img 
+                src={product.image} 
+                alt={product.name} 
+                className="product-image"
+                onError={(e) => {
+                  e.target.src = 'https://via.placeholder.com/400x300/f8f9fa/6c757d?text=' + encodeURIComponent(product.name);
+                }}
+                style={{
+                  width: '100%',
+                  height: '250px',
+                  objectFit: 'cover',
+                  borderRadius: '8px 8px 0 0'
+                }}
+              />
               {product.stock < 10 && (
                 <span style={{
                   position: 'absolute',

@@ -15,11 +15,26 @@ function Login({ setUser }) {
     try {
       const res = await API.post("/auth/login", form);
       localStorage.setItem("token", res.data.access_token);
-      setUser({ isLoggedIn: true });
-      alert("Login successful! Welcome back!");
-      window.location.href = "/dashboard";
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      
+      setUser({ 
+        isLoggedIn: true, 
+        isAdmin: res.data.user.isAdmin,
+        name: res.data.user.name,
+        email: res.data.user.email
+      });
+      
+      const welcomeMsg = res.data.user.isAdmin ? "Welcome back Admin!" : "Welcome back!";
+      alert("Login successful! " + welcomeMsg);
+      
+      // Role-based redirect
+      if (res.data.user.isAdmin) {
+        window.location.href = "/admin";
+      } else {
+        window.location.href = "/products";
+      }
     } catch (err) {
-      alert( + (err.response?.data?.message || "Login failed"));
+      alert(err.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
     }

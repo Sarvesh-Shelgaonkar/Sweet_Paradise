@@ -1,30 +1,53 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Homepage() {
+function Homepage({ user }) {
   const featuredSweets = [
     {
       id: 1,
-      name: "Chocolate Truffle",
-      price: "₹299",
-      image: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=300",
-      description: "Rich dark chocolate truffles"
+      name: "Classic Gulab Jamun",
+      price: "₹249",
+      image: "/gulabjamun.jpeg",
+      description: "Traditional soft and spongy milk solid balls in sugar syrup"
     },
     {
       id: 2,
-      name: "Gulab Jamun",
-      price: "₹149",
-      image: "https://images.unsplash.com/photo-1631452180539-96aca7d48617?w=300",
-      description: "Traditional Indian sweet"
+      name: "Bengali Rasgulla",
+      price: "₹199",
+      image: "/rasgulla.jpeg",
+      description: "Soft cottage cheese balls in light sugar syrup"
     },
     {
       id: 3,
-      name: "Rasgulla",
-      price: "₹199",
-      image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=300",
-      description: "Soft spongy cottage cheese balls"
+      name: "Kaju Katli",
+      price: "₹459",
+      image: "/kaju.jpeg",
+      description: "Diamond shaped cashew sweets with silver foil"
     }
   ];
+
+  const handleAddToCart = (sweet) => {
+    // Check if user is logged in
+    if (!user?.isLoggedIn) {
+      alert("Please register or login to add items to cart! 🛒");
+      window.location.href = "/register";
+      return;
+    }
+    
+    // If logged in, redirect to products page for full cart functionality
+    alert(`${sweet.name} - Please visit our Products page for full shopping experience! 🛒`);
+    window.location.href = "/products";
+  };
+
+  const handleAddToWishlist = (sweet) => {
+    if (!user?.isLoggedIn) {
+      alert("Please register or login to add items to wishlist! ❤️");
+      window.location.href = "/register";
+      return;
+    }
+    
+    alert(`${sweet.name} added to wishlist! ❤️`);
+  };
 
   return (
     <div className="homepage fade-in">
@@ -65,14 +88,37 @@ function Homepage() {
         <div className="products-grid">
           {featuredSweets.map(sweet => (
             <div key={sweet.id} className="product-card">
-              <img src={sweet.image} alt={sweet.name} className="product-image" />
+              <img 
+                src={sweet.image} 
+                alt={sweet.name} 
+                className="product-image"
+                onError={(e) => {
+                  e.target.src = 'https://via.placeholder.com/300x200/f8f9fa/6c757d?text=' + encodeURIComponent(sweet.name);
+                }}
+                style={{
+                  width: '100%',
+                  height: '200px',
+                  objectFit: 'cover',
+                  borderRadius: '8px 8px 0 0'
+                }}
+              />
               <div className="product-info">
                 <h3 className="product-name">{sweet.name}</h3>
                 <p className="product-description">{sweet.description}</p>
                 <div className="product-price">{sweet.price}</div>
                 <div className="product-actions">
-                  <button className="btn btn-primary">Add to Cart</button>
-                  <button className="btn btn-secondary">❤️</button>
+                  <button 
+                    className="btn btn-primary"
+                    onClick={() => handleAddToCart(sweet)}
+                  >
+                    Add to Cart
+                  </button>
+                  <button 
+                    className="btn btn-secondary"
+                    onClick={() => handleAddToWishlist(sweet)}
+                  >
+                    ❤️
+                  </button>
                 </div>
               </div>
             </div>
